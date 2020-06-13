@@ -1,0 +1,168 @@
+
+a.nav-link{
+    font-size: 23px !important;
+    font-weight: bold;
+    color: black !important;
+}
+.breadcrumb{
+    background-color: #CF0515 !important;
+}
+.top-custom-bar{
+    background-color: #CF0515 !important;
+}
+.my-link{
+    font-size: 20px !important;
+    color: white !important;
+    text-decoration: none !important;
+;    
+}
+.fa{
+    color: yellow !important;
+}
+.custom-icon{
+    color: black !important;
+    size: 25erm;
+
+}
+
+.top-nav a:hover {
+        border-bottom: 3px solid yellow;
+      }
+footer{
+    background-color: #272727 !important;
+}
+a{
+    text-decoration: none !important;
+    color: white !important;
+    font-size: 1rem !important;
+    text-align: left !important;
+}
+.footer-title{
+    color: white !important;
+    font-size: 2rem !important;
+    
+}
+.my-logo{
+    height: 200px !important;
+    width: 200px !important;
+}
+.my-logo1{
+    height: 200px !important;
+    width: 200px !important;
+    z-index: 10;
+    position: absolute;
+    bottom: -110px;
+    left: 100px;
+    margin-bottom: 25px;
+    
+}
+div.row.d-flex.my-bar{
+    height:50px !important;
+    z-index: -10;
+    
+}
+hr{
+ border: 1px solid;
+ width: 100%;
+}
+ul{
+    list-style: none !important;
+}
+.bullets{
+    margin-left: 45% !important;
+    
+}
+.bullets>li{
+    margin-left: 1px !important;
+    margin-right: 1px !important;
+}
+.bullets1>li{
+    margin-left: 1px !important;
+    margin-right: 1px !important;
+}
+.n-send{
+    color: white !important;
+    border:1px solid;
+    background-color: #CEA825;
+}
+div.col-sm-3{
+    padding: 1rem;
+}
+h5.footer-title>ul>li>a{
+    font-size: 5rem;
+}
+.body-text{
+    top:25px !important;
+}
+.submit-btn{
+    background-color: #fec801;
+    color: white;
+}
+.my-book-slot{
+    background-color: #CF0515;
+    
+    
+}
+.my-cover{
+    width: 100%;
+    height: 400px;
+    
+}
+.hi{
+    font-size: 19px !important;
+}
+.my-image{
+  height: 400px;
+  width: 400px;
+}
+.my-link{
+    font-size: 18px !important;
+}
+.my-link2{
+   color: #CEA825 !important;
+   font-weight: bolder;
+    
+}
+.my-plogo{
+    margin-top: 60px !important;
+    height: 600px;
+    width: 600px;
+}
+.s-num{
+    font-weight: bolder !important;
+    font-size: 30px !important;
+}
+.bullets-list > li{
+    list-style:square;
+
+}
+.end-btn{
+    background-color:#FEC801;
+}
+.custom-t{
+    margin-top: 200px;
+}
+.custom-d{
+    background-color:#CA0016;
+    
+}
+.custom-f{
+    margin-top: 50px;
+    z-index: 5;
+    bottom: 50px;
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #FEC801;
+}
+.my-style{
+    font-family: 'HelloStockholm-Regular';
+
+}
+.my-style::before{
+    font-family: 'Gotham Medium Regular' !important;
+    font-size: 200px !important;
+    position: absolute;
+    content: 'Slots';
+    z-index: -1;
+    top: -50;
+}
