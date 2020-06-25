@@ -66,8 +66,7 @@ class SlotBookings extends Model
         'slot_id',
         'user_id',
         'zoom_url',
-        'is_cancelled',
-        'is_waiting'
+        'status'
     ];
 
     /**
@@ -79,8 +78,7 @@ class SlotBookings extends Model
         'slot_id' => 'integer',
         'user_id' => 'integer',
         'zoom_url' => 'string',
-        'is_cancelled' => 'integer',
-        'is_waiting' => 'integer'
+        'status' => 'integer',
     ];
 
     /**

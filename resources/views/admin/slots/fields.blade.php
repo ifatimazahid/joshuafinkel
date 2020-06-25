@@ -10,6 +10,11 @@
     {!! Form::text('title', null, ['class' => 'form-control', 'placeholder'=>'Enter title']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('product_id', 'Product ID:') !!}
+    {!! Form::text('product_id', null, ['class' => 'form-control', 'placeholder'=>'Enter product_id', 'required' => 'required']) !!}
+</div>
+
 
 <!-- Date Field -->
 <div class="form-group col-sm-6">

@@ -131,8 +131,8 @@ class Product extends Model
         return $this->hasOne(ProductDetails::class, 'product_id');
     }
 
-    public function product_slots(){
-        return $this->hasMany(ProductSlots::class, 'product_id');
+    public function slots(){
+        return $this->hasMany(Slot::class, 'product_id');
     }
     
 }

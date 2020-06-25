@@ -24,10 +24,10 @@ class SlotDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-//        $dataTable->editColumn('product_id', function (Slot $model) {
-//            if ($model->product_slots)
-//                return $model->product_slots->products->title;
-//        });
+        $dataTable->editColumn('product_id', function (Slot $model) {
+            if ($model)
+                return $model->product_id;
+        });
 
         $dataTable->editColumn('date', function (Slot $model) {
             if ($model->slot_details)
@@ -106,7 +106,7 @@ class SlotDataTable extends DataTable
     protected function getColumns()
     {
         return [
-//            'product_id' => ['title' => 'Products'],
+            'product_id' => ['title' => 'Product'],
             'title',
             'date',
             'time',

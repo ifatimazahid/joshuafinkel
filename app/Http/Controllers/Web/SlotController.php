@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\SlotBookings;
 use App\Repositories\Admin\MembershipRepository;
+use App\Repositories\Admin\SlotBookingRepository;
 use App\Repositories\Admin\SlotDetailsRepository;
 use App\Repositories\Admin\SlotRepository;
 use Illuminate\Http\Request;
@@ -21,11 +22,14 @@ class SlotController extends Controller
 
     private $slotDetailsRepository;
 
-    public function __construct(SlotRepository $slotRepo, SlotDetailsRepository $slotDetailsRepo)
+    private $slotBookingRepository;
+
+    public function __construct(SlotRepository $slotRepo, SlotDetailsRepository $slotDetailsRepo, SlotBookingRepository $slotBookingRepo)
     {
 //        $this->middleware('auth');
         $this->slotRepository = $slotRepo;
         $this->slotDetailsRepository = $slotDetailsRepo;
+        $this->slotBookingRepository = $slotBookingRepo;
     }
 
     /**
@@ -40,6 +44,24 @@ class SlotController extends Controller
         return view('pages.table')->with([
             'slots' => $slots
         ]);
+    }
+
+    public function cancel(Request $request){
+        $user = Auth::id();
+
+        if (isset($request->id)){
+            $booking = $this->slotBookingRepository->findWhere(['slot_id' => $request->id, 'user_id' => $user, 'status' => 2]);
+
+            if ($booking){
+                $var = [];
+                $var['status'] = 1;
+               SlotBookings::where('slot_id', '=', $request->id)->where('user_id', '=', $user)->update($var);
+                return view('pages.success');
+            }
+            else {
+                return view('pages.products');
+            }
+        }
     }
 
 
@@ -62,24 +84,27 @@ class SlotController extends Controller
 
     public function book(Request $request)
     {
-//        dd($request->id);
         $user = Auth::id();
 
-        if ($user) {
-            $slot = [];
-            $slot['user_id'] = $user;
-            $slot['slot_id'] = $request->id;
+        if (isset($user)) {
 
-            SlotBookings::create($slot);
+            $slot = $this->slotBookingRepository->findWhere(['slot_id' => $request->id, 'user_id' => $user, 'status' => 2]);
+            if (count($slot) > 0){
+                return 3;
+            }
 
-            return view('pages.success');
-        } else{
-            return redirect(route('register'))->with([
-                'id' => $request->id
-            ]);
-        }
+                $slot = [];
+                $slot['user_id'] = $user;
+                $slot['slot_id'] = $request->id;
+                $slot['status'] = 2;
+
+                SlotBookings::create($slot);
+
+                return 1;
+            }
+             return 2;
     }
-    public function success(){
-        return view('pages.success');
-    }
+//    public function success(){
+//        return view('pages.success');
+//    }
 }

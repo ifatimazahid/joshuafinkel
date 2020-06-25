@@ -307,31 +307,11 @@ CREATE TABLE `product_details` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `product_details_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `product_details` */
 
-insert  into `product_details`(`id`,`product_id`,`description`,`price`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Description 1',123,'2020-06-06 10:14:45','2020-06-06 10:14:45',NULL);
-
-/*Table structure for table `product_slots` */
-
-DROP TABLE IF EXISTS `product_slots`;
-
-CREATE TABLE `product_slots` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `slot_id` int(11) unsigned DEFAULT NULL,
-  `product_id` int(11) unsigned DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `slot_id` (`slot_id`),
-  KEY `product_id` (`product_id`),
-  CONSTRAINT `product_slots_ibfk_1` FOREIGN KEY (`slot_id`) REFERENCES `slots` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `product_slots_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Data for the table `product_slots` */
+insert  into `product_details`(`id`,`product_id`,`description`,`price`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Description 1',123,'2020-06-06 10:14:45','2020-06-06 10:14:45',NULL),(2,2,'Description 2',345,'2020-06-19 15:46:05','2020-06-19 15:46:05',NULL);
 
 /*Table structure for table `products` */
 
@@ -344,11 +324,11 @@ CREATE TABLE `products` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `products` */
 
-insert  into `products`(`id`,`title`,`created_at`,`updated_at`,`deleted_at`) values (1,'Product 1','2020-06-06 10:14:45','2020-06-06 10:14:45',NULL);
+insert  into `products`(`id`,`title`,`created_at`,`updated_at`,`deleted_at`) values (1,'Product 1','2020-06-06 10:14:45','2020-06-06 10:14:45',NULL),(2,'Product 2','2020-06-19 15:46:05','2020-06-19 15:46:05',NULL);
 
 /*Table structure for table `role_user` */
 
@@ -447,8 +427,7 @@ CREATE TABLE `slot_bookings` (
   `slot_id` int(11) unsigned DEFAULT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
   `zoom_url` varchar(255) DEFAULT NULL,
-  `is_cancelled` tinyint(1) DEFAULT '0',
-  `is_waiting` tinyint(1) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '1' COMMENT '1=waiting, 2=booked, 3=cancelled',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -457,11 +436,11 @@ CREATE TABLE `slot_bookings` (
   KEY `slot_bookings_ibfk_1` (`slot_id`),
   CONSTRAINT `slot_bookings_ibfk_1` FOREIGN KEY (`slot_id`) REFERENCES `slots` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `slot_bookings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `slot_bookings` */
 
-insert  into `slot_bookings`(`id`,`slot_id`,`user_id`,`zoom_url`,`is_cancelled`,`is_waiting`,`created_at`,`updated_at`,`deleted_at`) values (2,9,1,NULL,0,0,'2020-06-09 19:05:00','2020-06-09 19:05:00',NULL),(3,9,1,NULL,0,0,'2020-06-09 19:05:58','2020-06-09 19:05:58',NULL),(4,8,1,NULL,0,0,'2020-06-09 19:06:18','2020-06-09 19:06:18',NULL),(5,8,1,NULL,0,0,'2020-06-09 19:06:34','2020-06-09 19:06:34',NULL),(6,8,1,NULL,0,0,'2020-06-09 19:06:49','2020-06-09 19:06:49',NULL),(7,8,1,NULL,0,0,'2020-06-09 19:06:51','2020-06-09 19:06:51',NULL),(8,8,1,NULL,0,0,'2020-06-09 19:06:52','2020-06-09 19:06:52',NULL),(9,8,1,NULL,0,0,'2020-06-09 19:09:55','2020-06-09 19:09:55',NULL),(10,8,1,NULL,0,0,'2020-06-09 19:13:19','2020-06-09 19:13:19',NULL);
+insert  into `slot_bookings`(`id`,`slot_id`,`user_id`,`zoom_url`,`status`,`created_at`,`updated_at`,`deleted_at`) values (16,10,3,NULL,1,'2020-06-16 18:29:14','2020-06-16 18:29:14',NULL),(17,7,3,NULL,1,'2020-06-19 09:35:26','2020-06-21 15:10:32',NULL),(18,11,1,NULL,2,'2020-06-19 15:46:05','2020-06-19 15:46:05',NULL);
 
 /*Table structure for table `slot_details` */
 
@@ -480,11 +459,11 @@ CREATE TABLE `slot_details` (
   PRIMARY KEY (`id`),
   KEY `slot_id` (`slot_id`),
   CONSTRAINT `slot_details_ibfk_1` FOREIGN KEY (`slot_id`) REFERENCES `slots` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `slot_details` */
 
-insert  into `slot_details`(`id`,`slot_id`,`date`,`time`,`description`,`price`,`created_at`,`updated_at`,`deleted_at`) values (1,NULL,'12-01-2021','14:00-15:00','The best ever!','24','2020-06-05 08:05:48','2020-06-05 08:05:48',NULL),(3,7,'12-01-2019','14:00-15:00','Description 1','123','2020-06-06 11:16:03','2020-06-06 11:16:03',NULL),(4,8,'12-07-2021','7:00','Description 2','345','2020-06-06 11:17:18','2020-06-06 11:17:18',NULL),(5,9,'09-07-2001','3:00-9:00','Description 3','456','2020-06-06 12:16:27','2020-06-06 12:16:27',NULL);
+insert  into `slot_details`(`id`,`slot_id`,`date`,`time`,`description`,`price`,`created_at`,`updated_at`,`deleted_at`) values (1,NULL,'12-01-2021','14:00-15:00','The best ever!','24','2020-06-05 08:05:48','2020-06-05 08:05:48',NULL),(3,7,'12-01-2019','14:00-15:00','Description 1','123','2020-06-06 11:16:03','2020-06-06 11:16:03',NULL),(4,8,'12-07-2021','7:00','Description 2','345','2020-06-06 11:17:18','2020-06-06 11:17:18',NULL),(5,9,'09-07-2001','3:00-9:00','Description 3','456','2020-06-06 12:16:27','2020-06-06 12:16:27',NULL),(6,10,'12-01-2019','12:00 am','Description','123','2020-06-16 18:09:23','2020-06-16 18:09:23',NULL);
 
 /*Table structure for table `slots` */
 
@@ -493,15 +472,18 @@ DROP TABLE IF EXISTS `slots`;
 CREATE TABLE `slots` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(11) NOT NULL,
+  `product_id` int(11) unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `slots_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `slots` */
 
-insert  into `slots`(`id`,`title`,`created_at`,`updated_at`,`deleted_at`) values (7,'Slot 1','2020-06-06 11:16:03','2020-06-06 11:16:03',NULL),(8,'Slot 2','2020-06-06 11:17:18','2020-06-06 11:17:18',NULL),(9,'Slot 3','2020-06-06 12:16:27','2020-06-06 12:16:27',NULL);
+insert  into `slots`(`id`,`title`,`product_id`,`created_at`,`updated_at`,`deleted_at`) values (7,'Slot 1',1,'2020-06-06 11:16:03','2020-06-06 11:16:03',NULL),(8,'Slot 2',1,'2020-06-06 11:17:18','2020-06-06 11:17:18',NULL),(9,'Slot 3',1,'2020-06-06 12:16:27','2020-06-06 12:16:27',NULL),(10,'Slot 4',1,'2020-06-16 18:09:23','2020-06-16 18:09:23',NULL),(11,'Slot 1',2,'2020-06-19 15:46:05','2020-06-19 15:46:05',NULL);
 
 /*Table structure for table `user_details` */
 
@@ -524,11 +506,11 @@ CREATE TABLE `user_details` (
   PRIMARY KEY (`id`),
   KEY `user_details_user_id_foreign` (`user_id`),
   CONSTRAINT `user_details_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `user_details` */
 
-insert  into `user_details`(`id`,`user_id`,`first_name`,`last_name`,`phone`,`address`,`image`,`is_verified`,`email_updates`,`is_social_login`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Super','Admin',NULL,NULL,NULL,1,1,0,'2020-06-01 23:59:18','2020-06-01 23:59:18',NULL),(2,2,'Admin','User',NULL,NULL,NULL,1,1,0,'2020-06-01 23:59:18','2020-06-01 23:59:18',NULL);
+insert  into `user_details`(`id`,`user_id`,`first_name`,`last_name`,`phone`,`address`,`image`,`is_verified`,`email_updates`,`is_social_login`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Super','Admin',NULL,NULL,NULL,1,1,0,'2020-06-01 23:59:18','2020-06-01 23:59:18',NULL),(2,2,'Admin','User',NULL,NULL,NULL,1,1,0,'2020-06-01 23:59:18','2020-06-01 23:59:18',NULL),(3,3,'Fay','Zee',NULL,NULL,NULL,1,0,0,'2020-06-21 19:05:18','2020-06-21 19:05:20',NULL);
 
 /*Table structure for table `user_devices` */
 
@@ -587,11 +569,11 @@ CREATE TABLE `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (1,'Super Admin','superadmin@boilerplate.com','$2y$10$GMj7UNU0LFdGQCidj0Lih.JMNJ4ki8rkboMnhTrThuBNdGuiIz85S','DWWCuaTzGtYZ5suAq9efPcSUKafiRIu45mPT56ifFObqbxBvcgaAfIBSvE5x','2020-06-01 23:59:17','2020-06-01 23:59:17',NULL),(2,'Admin','admin@boilerplate.com','$2y$10$rtTPWfdvM1s.Xat/q2RZ6eTi1UJsqpKw0o5jENz.r0ae2haL075sa',NULL,'2020-06-01 23:59:17','2020-06-01 23:59:17',NULL);
+insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (1,'Super Admin','superadmin@boilerplate.com','$2y$10$GMj7UNU0LFdGQCidj0Lih.JMNJ4ki8rkboMnhTrThuBNdGuiIz85S','Au6JtVLCJdQ26fqpdAY5JaZuFntFvlwU9s0VMfdGTpPrfj1ZJVz7boOu9Z2A','2020-06-01 23:59:17','2020-06-01 23:59:17',NULL),(2,'Admin','admin@boilerplate.com','$2y$10$rtTPWfdvM1s.Xat/q2RZ6eTi1UJsqpKw0o5jENz.r0ae2haL075sa',NULL,'2020-06-01 23:59:17','2020-06-01 23:59:17',NULL),(3,'Fayzee','fayzee@mailinator.com','$2y$10$kZ2UlYlWCbzOlc4ofxyrAeO4tNswUMe.2ERSS0IbffeNu0XCrYf3.',NULL,'2020-06-16 07:44:14','2020-06-16 07:44:14',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

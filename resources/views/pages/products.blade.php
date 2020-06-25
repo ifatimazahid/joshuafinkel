@@ -40,27 +40,45 @@
                 </ul>
 
                 {{--Display slots here--}}
-                <table class="table container table-hover">
-                    <thead class="custom-d">
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($slots as $slot)
+                    <table class="table container table-hover">
+                        <thead class="custom-d">
                         <tr>
-                            {{--<th scope="row">1</th>--}}
-                            <td>{{ $slot->title }}</td>
-                            <td>{{ $slot->slot_details['date'] }}</td>
-                            <td>{{ $slot->slot_details['time'] }}</td>
-                            <td><input type="radio" name="slot" value="{{ $slot->id }}"></td>
+                            <th scope="col">Title</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Slots</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @if(!isset($user))
+                            @foreach($products[0]->slots as $slot)
+                                <tr>
+                                    {{--<th scope="row">1</th>--}}
+                                    <td>{{ $slot->title }}</td>
+                                    <td>{{ $slot->slot_details['date'] }}</td>
+                                    <td>{{ $slot->slot_details['time'] }}</td>
+                                    <td><input type="radio" name="slot" value="{{ $slot->id }}"></td>
+                                </tr>
+                            @endforeach
+                        @elseif(isset($user))
+                            @if(count($slots <= 0))
+                                <tr>
+                                    <th scope="row">There are no slots</th>
+                                </tr>
+                                    @elseif(isset($slots))
+                            @foreach($slots as $slot)
+                                <tr>
+                                    {{--<th scope="row">1</th>--}}
+                                    <td>{{ $slot->title }}</td>
+                                    <td>{{ $slot->slot_details['date'] }}</td>
+                                    <td>{{ $slot->slot_details['time'] }}</td>
+                                    <td><input type="radio" name="slot" value="{{ $slot->id }}"></td>
+                                </tr>
+                            @endforeach
+                                @endif
+                        @endif
+                        </tbody>
+                    </table>
 
                 <button type="button" class="btn-primary onSubmit">Book Now
                 </button>
@@ -82,22 +100,38 @@
             var APP_URL = {!! json_encode(url('/')) !!}
 
            console.log(APP_URL);
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('book') }}",
-                data: {
-                    id: id,
-                    _token: token
-                },
-                cache: false,
-                success: function (result) {
-                     alert('You have successfully booked this slot!')
-                    return location.reload();
-                },
-                error: function () {
-                    console.log("AJAX error");
-                }
-            });
+
+           if (id == null){
+               alert('Please select a slot to book!')
+           } else if (id != null) {
+               $.ajax({
+                   method: 'POST',
+                   url: "{{ route('book') }}",
+                   data: {
+                       id: id,
+                       _token: token
+                   },
+                   cache: false,
+                   success: function (result) {
+                       if (result == 1){
+                          alert('You have successfully booked this slot!')
+                           return location.reload();
+                       }  else if (result == 2){
+
+                           alert('You need to register first!');
+{{--                           window.location = "{{ route('register') }}";--}}
+//                            window.location.href = "http://localhost:8080/joshuafinkel/register?id=" + id;
+                           window.location.href = "https://joshuafinkel.digimines.website/register?id=" + id;
+                       } else if (result == 3){
+                           alert('You have already booked this slot!');
+                           return location.reload();
+                       }
+                   },
+                   error: function () {
+                       console.log("AJAX error");
+                   }
+               });
+           }
         });
 
     });

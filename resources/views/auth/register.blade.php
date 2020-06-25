@@ -64,11 +64,20 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
+                                    <input type="hidden" name="slot_id" value="{{ $_GET['id'] }}">
                                     {{ __('Register') }}
                                 </button>
-                            </div>
+                                </div>
                         </div>
                     </form>
+                        <div class="col-md-10 offset-md-8">
+                            Already have an account? <br>
+                            <button type="submit" class="btn btn-primary">
+                                <input type="hidden" name="slot_id" value="{{ $_GET['id'] }}">
+                                <a href="{{ 'login' }}">Login</a>
+                            </button>
+                        </div>
+
                 </div>
             </div>
         </div>

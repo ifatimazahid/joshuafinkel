@@ -9,6 +9,7 @@ use App\Http\Requests\Admin;
 use App\Http\Requests\Admin\CreateProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Models\ProductDetails;
+use App\Models\Slot;
 use App\Models\SlotBookings;
 use App\Repositories\Admin\ProductRepository;
 use App\Http\Controllers\AppBaseController;
@@ -74,6 +75,17 @@ class ProductController extends AppBaseController
         $details['description'] = $request->description;
         $details['price'] = $request->price;
         ProductDetails::create($details);
+
+        $slot = [];
+        $slot['product_id'] = $product->id;
+        $slot['title'] = 'Slot 1';
+        $done = Slot::create($slot);
+
+        $slotBooking = [];
+        $slotBooking['slot_id'] = $done->id;
+        $slotBooking['user_id'] = Auth::id();
+        $slotBooking['status'] = 1;
+        SlotBookings::create($slotBooking);
 
         Flash::success($this->BreadCrumbName . ' saved successfully.');
         if (isset($request->continue)) {

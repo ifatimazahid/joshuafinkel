@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Laracasts\Flash\Flash;
 
 class RegisterController extends Controller
 {
@@ -71,9 +72,11 @@ class RegisterController extends Controller
         ]);
 
         $slot = [];
-        $slot['slot_id'] =  $data['id'];
+        $slot['slot_id'] = $data['slot_id'];
         $slot['user_id'] = $user->id;
+        $slot['status'] = 2;
         SlotBookings::create($slot);
+        Flash::success('Slot saved successfully.');
 
         return $user;
     }

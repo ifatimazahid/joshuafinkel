@@ -63,7 +63,8 @@ class Slot extends Model
 
 
     public $fillable = [
-        'title'
+        'title',
+        'product_id'
     ];
 
     /**
@@ -73,7 +74,8 @@ class Slot extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'title' => 'string'
+        'title' => 'string',
+        'product_id' => 'integer'
     ];
 
     /**
@@ -103,7 +105,8 @@ class Slot extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required'
+        'title' => 'required',
+        'product_id' => 'required'
     ];
 
     /**
@@ -141,7 +144,7 @@ class Slot extends Model
         return $this->hasMany(SlotBookings::class, 'slot_id');
     }
 
-    public function product_slots(){
-        return $this->hasMany(ProductSlots::class, 'slot_id');
+    public function products(){
+        return $this->belongsTo(Product::class);
     }
 }

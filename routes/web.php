@@ -19,7 +19,8 @@ Route::get('/products', 'Web\ProductController@index')->name('products');
 //Route::get('/slots', 'Web\SlotController@index')->name('slots');
 
 Route::get('/membership', 'Web\MembershipController@index')->name('membership');
-//Route::post('/submit-membership', 'Web\MembershipController@create')->name('submit-membership');
+Route::get('/profile', 'Web\ProfileController@index')->name('profile');
+Route::get('/cancel', 'Web\SlotController@cancel')->name('cancel');
 
 
 //Route::get('/check/{id}', 'Web\SlotController@check')->name('check');
